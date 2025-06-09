@@ -104,6 +104,155 @@ int main(){
         
         bool encontrado = false;
 
+        case 3: {
+            string finalidadeBuscada;
+            int valorMin, valorMax;
+
+            cout << "Digite a finalidade (aluguel / temporada / venda): ";
+            cin >> finalidadeBuscada;
+            cout << "Digite o valor minimo (R$): ";
+            cin >> valorMin;
+            cout << "Digite o valor maximo (R$): ";
+            cin >> valorMax;
+
+            ifstream arqBusca("imoveis.txt");
+            if (!arqBusca.is_open()) {
+                cout << "Erro ao abrir o arquivo para leitura." << endl;
+                break;
+            }
+
+            string linha;
+            bool encontrou = false;
+         while (arqBusca >> temp.tipo >> temp.finalidade >> temp.endereco >> temp.bairro >> temp.cidade
+                         >> temp.piso >> temp.conservacao >> temp.area >> temp.valor >> temp.IPTU
+                         >> temp.quartos >> temp.suites >> temp.banheiros >> temp.vagas
+                         >> temp.cozinha >> temp.sala >> temp.varanda >> temp.area_de_servico
+                         >> temp.armarios >> temp.arcondicionado >> temp.aquecedor >> temp.ventilador
+            ) {
+                if (temp.finalidade == finalidadeBuscada &&
+                    temp.valor >= valorMin &&
+                    temp.valor <= valorMax) {
+
+                    encontrou = true;
+                    cout << "---------------------------" << endl;
+                    cout << "Endereco: " << temp.endereco << endl;
+                    cout << "Bairro: " << temp.bairro << endl;
+                    cout << "Cidade: " << temp.cidade << endl;
+                    cout << "Valor: R$ " << temp.valor << endl;
+                    cout << "Finalidade: " << temp.finalidade << endl;
+                    cout << "Tipo: " << temp.tipo << endl;
+                    cout << "Quartos: " << temp.quartos << ", Suites: " << temp.suites << endl;
+                }
+            }
+
+            if (!encontrou) {
+                cout << "Nenhum imovel encontrado nessa faixa de valores e finalidade." << endl;
+            }
+
+            arqBusca.close();
+            break;
+        }
+
+                case 4: {
+            int arm, ar, aq, vent;
+            cout << "Deseja que o imovel tenha armarios embutidos? (1-sim / 0-nao): ";
+            cin >> arm;
+            cout << "Deseja que o imovel tenha ar-condicionado? (1-sim / 0-nao): ";
+            cin >> ar;
+            cout << "Deseja que o imovel tenha aquecedor? (1-sim / 0-nao): ";
+            cin >> aq;
+            cout << "Deseja que o imovel tenha ventilador? (1-sim / 0-nao): ";
+            cin >> vent;
+
+            ifstream arq("imoveis.txt");
+            if (!arq.is_open()) {
+                cout << "Erro ao abrir o arquivo." << endl;
+                break;
+            }
+
+            locacao temp;
+            bool encontrou = false;
+
+            while (
+                arq >> temp.tipo >> temp.finalidade >> temp.endereco >> temp.bairro >> temp.cidade
+                    >> temp.piso >> temp.conservacao >> temp.area >> temp.valor >> temp.IPTU
+                    >> temp.quartos >> temp.suites >> temp.banheiros >> temp.vagas
+                    >> temp.cozinha >> temp.sala >> temp.varanda >> temp.area_de_servico
+                    >> temp.armarios >> temp.arcondicionado >> temp.aquecedor >> temp.ventilador
+            ) {
+                if (temp.armarios == arm &&
+                    temp.arcondicionado == ar &&
+                    temp.aquecedor == aq &&
+                    temp.ventilador == vent) {
+
+                    encontrou = true;
+                    cout << "---------------------------" << endl;
+                    cout << "Endereco: " << temp.endereco << endl;
+                    cout << "Bairro: " << temp.bairro << endl;
+                    cout << "Cidade: " << temp.cidade << endl;
+                    cout << "Valor: R$ " << temp.valor << endl;
+                    cout << "Finalidade: " << temp.finalidade << endl;
+                    cout << "Tipo: " << temp.tipo << endl;
+                    cout << "Quartos: " << temp.quartos << ", Suites: " << temp.suites << endl;
+                }
+            }
+
+            if (!encontrou) {
+                cout << "Nenhum imovel encontrado com essas caracteristicas." << endl;
+            }
+
+            arq.close();
+            break;
+        }
+
+                case 5: {
+            int minQuartos, minSuites;
+
+            cout << "Digite o numero minimo de quartos: ";
+            cin >> minQuartos;
+            cout << "Digite o numero minimo de suites: ";
+            cin >> minSuites;
+
+            ifstream arq("imoveis.txt");
+            if (!arq.is_open()) {
+                cout << "Erro ao abrir o arquivo." << endl;
+                break;
+            }
+
+            locacao temp;
+            bool encontrou = false;
+
+            while (
+                arq >> temp.tipo >> temp.finalidade >> temp.endereco >> temp.bairro >> temp.cidade
+                    >> temp.piso >> temp.conservacao >> temp.area >> temp.valor >> temp.IPTU
+                    >> temp.quartos >> temp.suites >> temp.banheiros >> temp.vagas
+                    >> temp.cozinha >> temp.sala >> temp.varanda >> temp.area_de_servico
+                    >> temp.armarios >> temp.arcondicionado >> temp.aquecedor >> temp.ventilador
+            ) {
+                if (temp.quartos >= minQuartos && temp.suites >= minSuites) {
+                    encontrou = true;
+                    cout << "---------------------------" << endl;
+                    cout << "Endereco: " << temp.endereco << endl;
+                    cout << "Bairro: " << temp.bairro << endl;
+                    cout << "Cidade: " << temp.cidade << endl;
+                    cout << "Quartos: " << temp.quartos << " | Suites: " << temp.suites << endl;
+                    cout << "Valor: R$ " << temp.valor << " | Finalidade: " << temp.finalidade << endl;
+                    cout << "Tipo: " << temp.tipo << endl;
+                }
+            }
+
+            if (!encontrou) {
+                cout << "Nenhum imovel encontrado com essa quantidade de quartos/suites." << endl;
+            }
+
+            arq.close();
+            break;
+        }
+
+
+
+        }
+
         
         
 
@@ -111,6 +260,6 @@ int main(){
         
 
 
-    }   
+     
     return 0;
 }
